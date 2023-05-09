@@ -28,4 +28,4 @@ const baggerSchema = new mongoose.Schema(
   }
 )
 
-module.exports = mongood.model("Bagger", baggerSchema)
+module.exports = mongoose.model("Bagger", baggerSchema)
