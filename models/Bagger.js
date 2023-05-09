@@ -8,9 +8,10 @@ const baggerSchema = new mongoose.Schema(
       ref: "User"
     },
     munro: {
-      type: mongoose.Schema.Types.ObjectId,
+      // type: mongoose.Schema.Types.ObjectId,
+      type: String,
       required: true,
-      ref: "Munro"
+      // ref: "Munro"
     },
     bagged: {
       type: Boolean,
@@ -28,4 +29,4 @@ const baggerSchema = new mongoose.Schema(
   }
 )
 
-module.exports = mongood.model("Bagger", baggerSchema)
+module.exports = mongoose.model("Bagger", baggerSchema)

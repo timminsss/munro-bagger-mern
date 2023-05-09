@@ -29,6 +29,9 @@ app.use(cookieParser())
 app.use("/", express.static(path.join(__dirname, "public")))
 
 app.use("/", require("./routes/root"))
+app.use("/users", require("./routes/userRoutes"))
+app.use("/munrosbagged", require("./routes/baggerRoutes"))
+// app.use("/baggers", require("./routes/baggerRoutes"))
 
 app.all("*", (req, res) => {
     res.status(404)
