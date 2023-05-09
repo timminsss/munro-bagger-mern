@@ -23,4 +23,18 @@ const userSchema = new mongoose.Schema({
   }
 })
 
+// to delete all bagged instances when a user is deleted
+// TO COME BACK TO
+
+// userSchema.pre("remove", async function (next) {
+//   const bagger = mongoose.model("Bagger")
+
+//   try {
+//     await bagger.deleteMany({ user: this._id })
+//     next()
+//   } catch (err) {
+//     next(err)
+//   }
+// })
+
 module.exports = mongoose.model("User", userSchema)
