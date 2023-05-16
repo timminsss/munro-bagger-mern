@@ -1,5 +1,7 @@
 import { useGetUsersQuery } from "./usersApiSlice"
+import { Link } from "react-router-dom"
 import User from './User'
+import { FiUserPlus } from 'react-icons/fi';
 
 const UsersList = () => {
 
@@ -36,6 +38,13 @@ const UsersList = () => {
 
         content = (
           <div className="flex flex-col">
+          <Link to="/user/users/new">
+              <button
+                className="m-5 text-xl text-white bg-emerald-700 hover:bg-emerald-800 focus:ring-4 focus:outline-none focus:ring-emerald-300 rounded-lg w-full sm:w-auto px-5 py-5 text-center dark:bg-emerald-600 dark:hover:bg-emerald-700 dark:focus:ring-emerald-800"
+                title="Create User">
+                <FiUserPlus/>
+              </button>
+            </Link>
             <div className="overflow-x-auto sm:-mx-6 lg:-mx-8">
               <div className="inline-block min-w-full py-2 sm:px-6 lg:px-8">
                 <div className="overflow-hidden">

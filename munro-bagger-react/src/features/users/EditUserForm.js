@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react"
 import { useUpdateUserMutation, useDeleteUserMutation } from "./usersApiSlice"
-import { useNavigate } from "react-router-dom"
+import { useNavigate, Link } from "react-router-dom"
+import { BiArrowBack } from 'react-icons/bi';
 
 const USER_REGEX = /^[A-Za-z0-9]{3,20}$/
 const PWD_REGEX = /^[A-z0-9!@#$%]{4,12}$/
@@ -78,64 +79,72 @@ const EditUserForm = ({ user }) => {
 
     const content = (
         <>
+            <Link to="/user/users">
+              <button className="m-5 text-xl text-white bg-emerald-700 hover:bg-emerald-800 focus:ring-4 focus:outline-none focus:ring-emerald-300 rounded-lg w-full sm:w-auto px-5 py-5 text-center dark:bg-emerald-600 dark:hover:bg-emerald-700 dark:focus:ring-emerald-800">
+                <BiArrowBack/>
+              </button>
+            </Link>
             <p className={errClass}>{errContent}</p>
             <div className="m-5 block max-w-sm rounded-lg bg-white p-6 shadow-xl dark:bg-neutral-700">
-            <form className="form" onSubmit={e => e.preventDefault()}>
-              <h2>Edit User</h2>
-              <div>
-                {/* EMAIL */}
-                <label className="block mb-2 font-medium text-gray-900 dark:text-white" htmlFor="username">
-                    Email <span className="nowrap"></span></label>
-                <input
-                  className="bg-gray-200 border border-gray-300 text-gray-900 rounded-lg block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white "
-                  name="username"
-                  type="text"
-                  autoComplete="off"
-                  value={email}
-                  onChange={onUsernameChanged}
-                  disabled
-                />
-                {/* USERNAME */}
-                <label className="block mb-2 font-medium text-gray-900 dark:text-white" htmlFor="username">
-                    Username <span className="nowrap">[3-20 letters]</span></label>
-                <input
-                  className="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-emerald-500 focus:border-emerald-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-emerald-500 dark:focus:border-emerald-500"
-                  name="username"
-                  type="text"
-                  autoComplete="off"
-                  value={username}
-                  onChange={onUsernameChanged}
-                />
-                {/* PASSWORD */}
-                <label className="block mb-2 font-medium text-gray-900 dark:text-white" htmlFor="password">
-                    Password <span className="nowrap">[empty = no change]</span> <span className="nowrap">[4-12 chars incl. !@#$%]</span></label>
-                <input
-                  className="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-emerald-500 focus:border-emerald-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-emerald-500 dark:focus:border-emerald-500"
-                  id="password"
-                  name="password"
-                  type="password"
-                  value={password}
-                  onChange={onPasswordChanged}
-                />
-                <div className="my-5 flex justify-between">
-                  <button
-                    className="text-white bg-emerald-700 hover:bg-emerald-800 focus:ring-4 focus:outline-none focus:ring-emerald-300 font-medium rounded-lg w-full sm:w-auto px-5 py-2.5 text-center dark:bg-emerald-600 dark:hover:bg-emerald-700 dark:focus:ring-emerald-800"
-                    title="Save"
-                    onClick={onSaveUserClicked}
-                    disabled={!canSave}
-                  >
-                      Update Used
-                  </button>
-                  <button
-                    className="text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg w-full sm:w-auto px-5 py-2.5 text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800"
-                    title="Delete"
-                    onClick={onDeleteUserClicked}
-                  >
-                      Delete User
-                  </button>
+              <form onSubmit={e => e.preventDefault()}>
+                <h2 className="text-xl mb-3">Edit User</h2>
+                <div>
+                  {/* EMAIL */}
+                  <label className="block mb-2 font-medium text-gray-900 dark:text-white" htmlFor="username">
+                      Email <span className="nowrap"></span></label>
+                  <input
+                    className="bg-gray-200 border border-gray-300 text-gray-900 rounded-lg block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white "
+                    name="username"
+                    type="text"
+                    autoComplete="off"
+                    value={email}
+                    onChange={onUsernameChanged}
+                    disabled
+                  />
+                  {/* USERNAME */}
+                  <label className="block mb-2 font-medium text-gray-900 dark:text-white" htmlFor="username">
+                      Username <span className="nowrap">(3-20 letters)</span></label>
+                  <input
+                    className="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-emerald-500 focus:border-emerald-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-emerald-500 dark:focus:border-emerald-500"
+                    name="username"
+                    type="text"
+                    autoComplete="off"
+                    value={username}
+                    onChange={onUsernameChanged}
+                  />
+                  {/* PASSWORD */}
+                  <label className="block mb-2 font-medium text-gray-900 dark:text-white" htmlFor="password">
+                      Password
+                      <p className="nowrap">Leave blank if no change</p>
+                      <p className="nowrap">(4-12 chars letters and numbers)</p></label>
+                  <input
+                    className="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-emerald-500 focus:border-emerald-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-emerald-500 dark:focus:border-emerald-500"
+                    id="password"
+                    name="password"
+                    type="password"
+                    value={password}
+                    placeholder="********"
+                    onChange={onPasswordChanged}
+                  />
+                  <div className="my-5 flex justify-between">
+                    <button
+                      className="text-white bg-emerald-700 hover:bg-emerald-800 focus:ring-4 focus:outline-none focus:ring-emerald-300 font-medium rounded-lg w-full sm:w-auto px-5 py-2.5 text-center dark:bg-emerald-600 dark:hover:bg-emerald-700 dark:focus:ring-emerald-800"
+                      title="Save"
+                      onClick={onSaveUserClicked}
+                      disabled={!canSave}
+                    >
+                        Update Used
+                    </button>
+                    <button
+                      className="text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg w-full sm:w-auto px-5 py-2.5 text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800"
+                      title="Delete"
+                      onClick={onDeleteUserClicked}
+                    >
+                        Delete User
+                    </button>
+                  </div>
                 </div>
-              </div>
-            </form>
+              </form>
             </div>
         </>
     )

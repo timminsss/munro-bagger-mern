@@ -2,41 +2,38 @@ import { useState, useEffect } from "react"
 import { useAddNewUserMutation } from "./usersApiSlice"
 import { useNavigate } from "react-router-dom"
 
-const EMAIL_REGEX = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/
+const EMAIL_REGEX = /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/
 const USER_REGEX = /^[A-Za-z0-9]{3,20}$/
 const PWD_REGEX = /^[A-z0-9!@#$%]{4,12}$/
 
 const NewUserForm = () => {
   // this is not called until ready to call it
   const [addNewUser, {
-      isLoading,
-      isSuccess,
-      isError,
-      error
-  }] = useAddNewUserMutation()
+    isLoading,
+    isSuccess,
+    isError,
+    error
+}] = useAddNewUserMutation()
 
   const navigate = useNavigate()
 
-  const [username, setUsername] = useState('')
+  const [username, setUsername] = useState("")
   const [validUsername, setValidUsername] = useState(false)
-  const [email, setEmail] = useState('')
+  const [email, setEmail] = useState("")
   const [validEmail, setValidEmail] = useState(false)
-  const [password, setPassword] = useState('')
+  const [password, setPassword] = useState("")
   const [validPassword, setValidPassword] = useState(false)
 
   useEffect(() => {
       setValidUsername(USER_REGEX.test(username))
-      // this works
-  }, [username])
+    }, [username])
 
   useEffect(() => {
     setValidEmail(EMAIL_REGEX.test(email))
-    console.log(`valid email ${EMAIL_REGEX.test(email)} - ${email}`)
   }, [email])
 
   useEffect(() => {
       setValidPassword(PWD_REGEX.test(password))
-      console.log(`valid password ${PWD_REGEX.test(password)} - ${password}`)
   }, [password])
 
   useEffect(() => {
@@ -45,22 +42,21 @@ const NewUserForm = () => {
           setEmail("")
           setPassword("")
           navigate("/user/users")
+          console.log("is success")
       }
   }, [isSuccess, navigate])
 
   const onUsernameChanged = e => {
     setUsername(e.target.value)
-    // console.log(`username changing ${username}`)
+  }
+  const onEmailChanged = e => {
+    setEmail(e.target.value)
   }
   const onPasswordChanged = e => {
     setPassword(e.target.value)
-    // console.log(`password changing ${password}`)
   }
 
-  console.log(`email changing ${email}`)
-
   const canSave = [validUsername, validEmail, validPassword].every(Boolean) && !isLoading
-  // console.log(`${canSave} can save ${[validUsername, validEmail, validPassword].every(Boolean)}`)
 
   const onSaveUserClicked = async (e) => {
       e.preventDefault()
@@ -94,6 +90,7 @@ const NewUserForm = () => {
                 type="text"
                 autoComplete="off"
                 placeholder="Email"
+                onChange={onEmailChanged}
                 required
                 // value={email}
             />
