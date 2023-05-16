@@ -17,7 +17,7 @@ export const bagsApiSlice = apiSlice.injectEndpoints({
           validateStatus: (response, result) => {
               return response.status === 200 && !result.isError
           },
-          keepUnusedDataFor: 5,
+          // keepUnusedDataFor: 5,
           transformResponse: responseData => {
               const loadedBags = responseData.map(bags => {
                   bags.id = bags._id

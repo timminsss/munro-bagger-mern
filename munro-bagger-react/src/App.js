@@ -10,34 +10,35 @@ import EditUser from "./features/users/EditUser"
 import NewUserForm from "./features/users/NewUserForm"
 import EditBag from "./features/bags/EditBag"
 import NewBag from "./features/bags/NewBag"
+import Prefetch from "./features/auth/Prefetch"
 
 function App() {
   return (
     <Routes>
-      <Route path="/" element={<Layout/>}>
-        {/* public viewing */}
-        <Route index element={<Public/>}/>
-        <Route path="login" element={<Login/>}/>
+        <Route path="/" element={<Layout/>}>
+            {/* public viewing */}
+            <Route index element={<Public/>}/>
+            <Route path="login" element={<Login/>}/>
 
+          {/* logged in viewing */}
+          <Route element={<Prefetch/>}>
+              <Route path="user" element={<UserLayout/>}>
+                  <Route index element={<Welcome/>}/>
+                  <Route path="users">
+                    <Route index element={<UserList/>}/>
+                    <Route path="new" element={<NewUserForm/>}/>
+                    <Route path=":id" element={<EditUser/>}/>
+                  </Route>
+              </Route>
 
-
-        {/* logged in viewing */}
-        <Route path="user" element={<UserLayout/>}>
-          <Route index element={<Welcome/>}/>
-          <Route path="users">
-            <Route index element={<UserList/>}/>
-            <Route path="new" element={<NewUserForm/>}/>
-            <Route path=":id" element={<EditUser/>}/>
+              <Route path="munrosbagged">
+                  <Route index element={<BagList/>}/>
+                  <Route path=":id" element={<EditBag/>}/>
+                  <Route path="new" element={<NewBag/>}/>
+              </Route>
           </Route>
-        </Route>
 
-        <Route path="munrosbagged">
-          <Route index element={<BagList/>}/>
-          <Route path=":id" element={<EditBag/>}/>
-          <Route path="new" element={<NewBag/>}/>
         </Route>
-
-      </Route>
     </Routes>
   );
 }

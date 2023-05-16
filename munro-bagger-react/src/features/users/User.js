@@ -13,13 +13,14 @@ const User = ({ userId }) => {
   if (user) {
       const handleEdit = () => navigate(`/user/users/${userId}`)
 
-      const userRolesString = user.role.toString().replaceAll(',', ', ')
+      // const userRolesString = user.role.toString().replaceAll(',', ', ')
 
       return (
         <tr className="border-b transition duration-300 ease-in-out hover:bg-emerald-100 dark:border-neutral-500 dark:hover:bg-neutral-600">
             <td className="whitespace-nowrap px-6 py-4">{user.username}</td>
             <td className="whitespace-nowrap px-6 py-4">{user.email}</td>
-            <td className="whitespace-nowrap px-6 py-4">{userRolesString}</td>
+            <td className="whitespace-nowrap px-6 py-4">{user.role}</td>
+            {/* <td className="whitespace-nowrap px-6 py-4">{userRolesString}</td> */}
             <td className="whitespace-nowrap px-6 py-4">
                 <button
                     className=""
