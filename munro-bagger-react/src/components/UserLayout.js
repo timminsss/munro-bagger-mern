@@ -5,7 +5,7 @@ import Footer from "./Footer"
 const UserLayout = () => {
   return (
     <>
-      <h1>Welcome you are logged in!</h1>
+      <h1>LOGGING IN OR LOGGED IN</h1>
       <Outlet/>
       <Footer/>
     </>
